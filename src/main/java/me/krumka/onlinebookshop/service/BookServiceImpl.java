@@ -4,13 +4,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.model.Book;
 import me.krumka.onlinebookshop.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    @Autowired
     private final BookRepository bookRepository;
 
     @Override

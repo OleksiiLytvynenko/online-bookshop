@@ -1,19 +1,16 @@
 package me.krumka.onlinebookshop.repository;
 
-import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.model.Book;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
-    @Autowired
     private final SessionFactory sessionFactory;
 
     @Override
@@ -27,7 +24,7 @@ public class BookRepositoryImpl implements BookRepository {
             transaction.commit();
             return book;
         } catch (Exception e) {
-            if (transaction != null) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             throw new RuntimeException("Cannot insert book:" + book, e);
@@ -41,10 +38,7 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public List<Book> findAll() {
         try (Session session = sessionFactory.openSession()) {
-            CriteriaQuery<Book> criteriaQuery = session.getCriteriaBuilder()
-                    .createQuery(Book.class);
-            criteriaQuery.from(Book.class);
-            return session.createQuery(criteriaQuery).getResultList();
+            return session.createQuery("from Book", Book.class).getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Cannot find all books", e);
         }
