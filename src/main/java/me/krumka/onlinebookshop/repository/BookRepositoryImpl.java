@@ -2,6 +2,7 @@ package me.krumka.onlinebookshop.repository;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import me.krumka.onlinebookshop.exception.DataProcessingException;
 import me.krumka.onlinebookshop.model.Book;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,7 +28,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Cannot insert book:" + book, e);
+            throw new DataProcessingException("Cannot insert book:" + book, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -40,7 +41,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Book", Book.class).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Cannot find all books", e);
+            throw new DataProcessingException("Cannot find all books", e);
         }
     }
 }
