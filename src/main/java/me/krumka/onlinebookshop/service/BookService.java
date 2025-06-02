@@ -1,10 +1,13 @@
 package me.krumka.onlinebookshop.service;
 
 import java.util.List;
-import me.krumka.onlinebookshop.model.Book;
+import me.krumka.onlinebookshop.dto.BookDto;
+import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
 
 public interface BookService {
-    Book save(Book book);
+    BookDto save(CreateBookRequestDto book);
 
-    List<Book> findAll();
+    List<BookDto> findAll();
+
+    BookDto findBookById(Long id);
 }

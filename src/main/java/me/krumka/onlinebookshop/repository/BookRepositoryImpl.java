@@ -1,6 +1,7 @@
 package me.krumka.onlinebookshop.repository;
 
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.exception.DataProcessingException;
 import me.krumka.onlinebookshop.model.Book;
@@ -33,6 +34,14 @@ public class BookRepositoryImpl implements BookRepository {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            Book book = session.find(Book.class, id);
+            return Optional.ofNullable(book);
         }
     }
 
