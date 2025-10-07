@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.BookDto;
 import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
+import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
 import me.krumka.onlinebookshop.exception.EntityNotFoundException;
 import me.krumka.onlinebookshop.mapper.BookMapper;
 import me.krumka.onlinebookshop.model.Book;
@@ -23,6 +24,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public BookDto updateBookById(Long id, UpdateBookRequestDto requestDto) {
+        Book book = bookRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Book not found with id " + id)
+        );
+        bookMapper.updateBookFromDto(requestDto, book);
+        return bookMapper.toBookDto(bookRepository.save(book));
+    }
+
+    @Override
     public List<BookDto> findAll() {
         return bookRepository.findAll().stream()
                 .map(bookMapper::toBookDto)
@@ -35,5 +45,10 @@ public class BookServiceImpl implements BookService {
                 () -> new EntityNotFoundException("Cannot find book by id " + id)
         );
         return bookMapper.toBookDto(book);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
     }
 }
