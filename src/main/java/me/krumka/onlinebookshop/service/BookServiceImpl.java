@@ -3,12 +3,15 @@ package me.krumka.onlinebookshop.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.BookDto;
+import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
 import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
 import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
 import me.krumka.onlinebookshop.exception.EntityNotFoundException;
 import me.krumka.onlinebookshop.mapper.BookMapper;
 import me.krumka.onlinebookshop.model.Book;
 import me.krumka.onlinebookshop.repository.BookRepository;
+import me.krumka.onlinebookshop.repository.BookSpecificationBuilder;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -50,5 +54,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDto> search(BookSearchParametersDto bookSearchParametersDto) {
+        Specification<Book> bookSpecification = bookSpecificationBuilder
+                .build(bookSearchParametersDto);
+        return bookRepository.findAll(bookSpecification)
+                .stream()
+                .map(bookMapper::toBookDto)
+                .toList();
     }
 }

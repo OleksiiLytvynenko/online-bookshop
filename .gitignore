@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/application.properties
+add-ability-to-search-books.md
 
 ### STS ###
 .apt_generated

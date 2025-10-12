@@ -1,0 +1,21 @@
+package me.krumka.onlinebookshop.repository.book;
+
+import java.util.Arrays;
+import me.krumka.onlinebookshop.model.Book;
+import me.krumka.onlinebookshop.repository.SpecificationProvider;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TitleSpecificationProvider implements SpecificationProvider<Book> {
+
+    @Override
+    public String getKey() {
+        return "title";
+    }
+
+    public Specification<Book> getSpecification(String[] params) {
+        return (root, query, criteriaBuilder) -> root.get("title")
+                .in(Arrays.stream(params).toArray());
+    }
+}

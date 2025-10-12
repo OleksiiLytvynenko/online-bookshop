@@ -2,6 +2,7 @@ package me.krumka.onlinebookshop.service;
 
 import java.util.List;
 import me.krumka.onlinebookshop.dto.BookDto;
+import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
 import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
 import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
 
@@ -15,4 +16,6 @@ public interface BookService {
     BookDto findBookById(Long id);
 
     void deleteById(Long id);
+
+    List<BookDto> search(BookSearchParametersDto bookSearchParametersDto);
 }

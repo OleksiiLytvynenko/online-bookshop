@@ -3,6 +3,7 @@ package me.krumka.onlinebookshop.controller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.BookDto;
+import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
 import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
 import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
 import me.krumka.onlinebookshop.service.BookService;
@@ -50,4 +51,8 @@ public class BookController {
         bookService.deleteById(id);
     }
 
+    @GetMapping("/search")
+    List<BookDto> search(BookSearchParametersDto bookSearchParametersDto) {
+        return bookService.search(bookSearchParametersDto);
+    }
 }
