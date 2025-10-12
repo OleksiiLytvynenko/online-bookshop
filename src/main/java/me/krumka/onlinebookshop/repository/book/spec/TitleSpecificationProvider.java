@@ -1,4 +1,4 @@
-package me.krumka.onlinebookshop.repository.book;
+package me.krumka.onlinebookshop.repository.book.spec;
 
 import java.util.Arrays;
 import me.krumka.onlinebookshop.model.Book;

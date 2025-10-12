@@ -1,8 +1,10 @@
-package me.krumka.onlinebookshop.repository;
+package me.krumka.onlinebookshop.repository.book;
 
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
 import me.krumka.onlinebookshop.model.Book;
+import me.krumka.onlinebookshop.repository.SpecificationBuilder;
+import me.krumka.onlinebookshop.repository.SpecificationProviderManager;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 

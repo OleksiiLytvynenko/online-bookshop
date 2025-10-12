@@ -9,8 +9,8 @@ import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
 import me.krumka.onlinebookshop.exception.EntityNotFoundException;
 import me.krumka.onlinebookshop.mapper.BookMapper;
 import me.krumka.onlinebookshop.model.Book;
-import me.krumka.onlinebookshop.repository.BookRepository;
-import me.krumka.onlinebookshop.repository.BookSpecificationBuilder;
+import me.krumka.onlinebookshop.repository.book.BookRepository;
+import me.krumka.onlinebookshop.repository.book.BookSpecificationBuilder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 

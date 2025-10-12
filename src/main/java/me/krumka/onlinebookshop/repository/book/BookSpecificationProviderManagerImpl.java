@@ -1,9 +1,11 @@
-package me.krumka.onlinebookshop.repository;
+package me.krumka.onlinebookshop.repository.book;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.exception.SpecificationNotFoundException;
 import me.krumka.onlinebookshop.model.Book;
+import me.krumka.onlinebookshop.repository.SpecificationProvider;
+import me.krumka.onlinebookshop.repository.SpecificationProviderManager;
 import org.springframework.stereotype.Component;
 
 @Component
