@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
+    private static final String AUTHOR_KEY = "author";
+    private static final String TITLE_KEY = "title";
+    private static final String ISBN_KEY = "isbn";
     private final SpecificationProviderManager<Book> specificationProviderManager;
 
     @Override
@@ -19,18 +22,18 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
         if (bookSearchParametersDto.authors() != null
                 && bookSearchParametersDto.authors().length > 0) {
             specification = specification.and(specificationProviderManager
-                    .getSpecificationProvider("author")
+                    .getSpecificationProvider(AUTHOR_KEY)
                     .getSpecification(bookSearchParametersDto.authors()));
         }
         if (bookSearchParametersDto.titles() != null
                 && bookSearchParametersDto.titles().length > 0) {
             specification = specification.and(specificationProviderManager
-                    .getSpecificationProvider("title")
+                    .getSpecificationProvider(TITLE_KEY)
                     .getSpecification(bookSearchParametersDto.titles()));
         }
         if (bookSearchParametersDto.isbns() != null && bookSearchParametersDto.isbns().length > 0) {
             specification = specification.and(specificationProviderManager
-                    .getSpecificationProvider("isbn")
+                    .getSpecificationProvider(ISBN_KEY)
                     .getSpecification(bookSearchParametersDto.isbns()));
         }
         return specification;
