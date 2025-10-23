@@ -1,5 +1,7 @@
 package me.krumka.onlinebookshop.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.BookDto;
@@ -30,24 +32,34 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookDto getBookById(
+            @PathVariable @Min(value = 1, message = "ID must be greater than or equal to 1") Long id
+    ) {
         return bookService.findBookById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDto createBook(@RequestBody CreateBookRequestDto requestDto) {
+    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
     @PutMapping("/{id}")
-    public BookDto updateBook(@PathVariable Long id, @RequestBody UpdateBookRequestDto requestDto) {
+    public BookDto updateBook(
+            @PathVariable @Min(
+                    value = 1,
+                    message = "ID must be greater than or equal to 1"
+            ) Long id,
+            @RequestBody @Valid UpdateBookRequestDto requestDto
+    ) {
         return bookService.updateBookById(id, requestDto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(
+            @PathVariable @Min(value = 1, message = "ID must be greater than or equal to 1") Long id
+    ) {
         bookService.deleteById(id);
     }
 
