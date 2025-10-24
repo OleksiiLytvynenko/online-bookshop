@@ -24,8 +24,6 @@ public class CreateBookRequestDto {
     @DecimalMin("0.00")
     @Digits(integer = 8, fraction = 2)
     private BigDecimal price;
-    @NotBlank
     private String description;
-    @NotBlank
     private String coverImage;
 }
