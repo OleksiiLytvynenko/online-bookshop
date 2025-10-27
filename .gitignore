@@ -4,7 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/application.properties
-add-ability-to-search-books.md
+1-add-ability-to-search-books.md
+2-global-exception-handler-and-data-validation.md
 
 ### STS ###
 .apt_generated
