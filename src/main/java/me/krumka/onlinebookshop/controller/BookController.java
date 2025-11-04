@@ -1,14 +1,17 @@
 package me.krumka.onlinebookshop.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.BookDto;
 import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
 import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
 import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
 import me.krumka.onlinebookshop.service.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +26,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/books")
+@Tag(name = "Book API", description = "Endpoints for managing books")
 public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public List<BookDto> getAll() {
-        return bookService.findAll();
+    @Operation(summary = "Get all products", description = "Returns all products")
+    public Page<BookDto> getAll(Pageable pageable) {
+        return bookService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a book by id", description = "Returns a book by id")
     public BookDto getBookById(
             @PathVariable @Min(value = 1, message = "ID must be greater than or equal to 1") Long id
     ) {
@@ -40,11 +46,13 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create a new book", description = "Creates a new book")
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a book by id", description = "Updates a book by id")
     public BookDto updateBook(
             @PathVariable @Min(
                     value = 1,
@@ -57,6 +65,7 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a book by id", description = "Deletes a book by id")
     public void delete(
             @PathVariable @Min(value = 1, message = "ID must be greater than or equal to 1") Long id
     ) {
@@ -64,7 +73,12 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public List<BookDto> search(BookSearchParametersDto bookSearchParametersDto) {
-        return bookService.search(bookSearchParametersDto);
+    @Operation(
+            summary = "Search books by parameters",
+            description = "Searches books by parameters and returns a list of books")
+    public Page<BookDto> search(
+            BookSearchParametersDto bookSearchParametersDto,
+            Pageable pageable) {
+        return bookService.search(bookSearchParametersDto, pageable);
     }
 }
