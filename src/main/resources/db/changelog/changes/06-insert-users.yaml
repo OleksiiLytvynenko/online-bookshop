@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 06-insert-users
+      author: oleksii.lytvynenko
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: admin@bookstore.com
+              - column:
+                  name: password
+                  value: $2a$10$LtqI7VSuPedqf59TB7IdOeYOIPat4MzD0TUyoBR6H6mSJc3uLGg.u
+              - column:
+                  name: first_name
+                  value: Nameless
+              - column:
+                  name: last_name
+                  value: Hero
+              - column:
+                  name: shipping_address
+                  value: Swamp Camp, Colony, Mirtana 123AR
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: michael.chen@gmail.com
+              - column:
+                  name: password
+                  value: $2a$10$LtqI7VSuPedqf59TB7IdOeYOIPat4MzD0TUyoBR6H6mSJc3uLGg.u
+              - column:
+                  name: first_name
+                  value: Michael
+              - column:
+                  name: last_name
+                  value: Chen
+              - column:
+                  name: shipping_address
+                  value: 1523 Cherry Lane, Portland, OR 97201
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: emma.johnson@yahoo.com
+              - column:
+                  name: password
+                  value: $2a$10$LtqI7VSuPedqf59TB7IdOeYOIPat4MzD0TUyoBR6H6mSJc3uLGg.u
+              - column:
+                  name: first_name
+                  value: Emma
+              - column:
+                  name: last_name
+                  value: Johnson
+              - column:
+                  name: shipping_address
+                  value: 89 Maple Drive, Austin, TX 78701
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'

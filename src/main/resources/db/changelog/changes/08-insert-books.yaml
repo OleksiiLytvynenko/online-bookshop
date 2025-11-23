@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08-insert-books
+      author: oleksii.lytvynenko
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: Klara and the Sun
+              - column:
+                  name: author
+                  value: Kazuo Ishiguro
+              - column:
+                  name: isbn
+                  value: '9780593318171'
+              - column:
+                  name: price
+                  value: '18.99'
+              - column:
+                  name: description
+                  value: A thrilling book that offers a look at our changing world through the eyes of an unforgettable narrator.
+              - column:
+                  name: cover_image
+                  value: https://example.com/covers/klara-and-the-sun.jpg
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: The Last Wish
+              - column:
+                  name: author
+                  value: Andrzej Sapkowski
+              - column:
+                  name: isbn
+                  value: '9780316029186'
+              - column:
+                  name: price
+                  value: '16.99'
+              - column:
+                  name: description
+                  value: Geralt of Rivia is a witcher. A cunning sorcerer. A merciless assassin. And a cold-blooded killer. His sole purpose to destroy the monsters that plague the world.
+              - column:
+                  name: cover_image
+                  value: https://example.com/covers/the-last-wish.jpg
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: Cloud Atlas
+              - column:
+                  name: author
+                  value: David Mitchell
+              - column:
+                  name: isbn
+                  value: '9780375507250'
+              - column:
+                  name: price
+                  value: '17.99'
+              - column:
+                  name: description
+                  value: A novel that weaves together six different stories spanning centuries, exploring themes of power, survival, and the interconnectedness of human lives.
+              - column:
+                  name: cover_image
+                  value: https://example.com/covers/cloud-atlas.jpg
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
