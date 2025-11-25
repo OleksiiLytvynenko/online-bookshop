@@ -4,6 +4,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.user.UserRegistrationRequestDto;
 import me.krumka.onlinebookshop.dto.user.UserResponseDto;
+import me.krumka.onlinebookshop.exception.EntityNotFoundException;
 import me.krumka.onlinebookshop.exception.RegistrationException;
 import me.krumka.onlinebookshop.mapper.UserMapper;
 import me.krumka.onlinebookshop.model.Role;
@@ -31,7 +32,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userRegistrationRequestDto.getPassword()));
         Role.RoleName defaultRoleName = Role.RoleName.ROLE_USER;
         Role defaultRole = roleRepository.findByName(defaultRoleName)
-                        .orElseThrow(() -> new IllegalStateException("Cannot find default role"));
+                        .orElseThrow(
+                                () -> new EntityNotFoundException(
+                                        "Cannot find default role: " + defaultRoleName
+                                )
+                        );
         user.setRoles(Set.of(defaultRole));
         userRepository.save(user);
         return userMapper.toUserResponseDto(user);
