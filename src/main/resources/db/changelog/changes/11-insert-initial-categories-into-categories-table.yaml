@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11-insert-initial-categories-into-categories-table
+      author: oleksii.lytvynenko
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Fiction"
+              - column:
+                  name: description
+                  value: "Books based on imagination, not strictly history or fact."
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Science & Technology"
+              - column:
+                  name: description
+                  value: "Books covering natural science, engineering, and technology."
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Biography"
+              - column:
+                  name: description
+                  value: "An account of someone's life written by someone else."
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Programming"
+              - column:
+                  name: description
+                  value: "Books on software development, computer science, and coding languages."
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Sci-Fi"
+              - column:
+                  name: description
+                  value: "Science fiction, dealing with imaginative concepts such as futuristic science and technology, space travel, time travel, and extraterrestrial life."
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Fantasy"
+              - column:
+                  name: description
+                  value: "Literature set in an imaginary universe, often inspired by myth and folklore. It frequently involves magic, mythical creatures, and fantastical worlds."
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'

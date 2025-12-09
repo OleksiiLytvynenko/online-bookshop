@@ -1,9 +1,9 @@
 package me.krumka.onlinebookshop.service;
 
-import me.krumka.onlinebookshop.dto.BookDto;
-import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
-import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
-import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
+import me.krumka.onlinebookshop.dto.book.BookDto;
+import me.krumka.onlinebookshop.dto.book.BookSearchParametersDto;
+import me.krumka.onlinebookshop.dto.book.CreateBookRequestDto;
+import me.krumka.onlinebookshop.dto.book.UpdateBookRequestDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
