@@ -13,14 +13,12 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
 
     Page<Book> findAllByCategoriesId(Long categoryId, Pageable pageable);
 
-    //@Query("select b from Book b LEFT JOIN FETCH b.categories")
     @EntityGraph(attributePaths = "categories")
     Page<Book> findAll(Pageable pageable);
 
     @EntityGraph(attributePaths = "categories")
     Page<Book> findAll(Specification<Book> spec, Pageable pageable);
 
-    //@Query("select b from Book b LEFT JOIN FETCH b.categories where b.id = :id")
     @EntityGraph(attributePaths = "categories")
     Optional<Book> findById(Long id);
 }
