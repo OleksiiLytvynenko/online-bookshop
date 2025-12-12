@@ -1,7 +1,7 @@
 package me.krumka.onlinebookshop.repository.book;
 
 import lombok.RequiredArgsConstructor;
-import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
+import me.krumka.onlinebookshop.dto.book.BookSearchParametersDto;
 import me.krumka.onlinebookshop.model.Book;
 import me.krumka.onlinebookshop.repository.SpecificationBuilder;
 import me.krumka.onlinebookshop.repository.SpecificationProviderManager;

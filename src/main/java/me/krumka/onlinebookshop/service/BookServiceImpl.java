@@ -1,13 +1,16 @@
 package me.krumka.onlinebookshop.service;
 
+import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import me.krumka.onlinebookshop.dto.BookDto;
-import me.krumka.onlinebookshop.dto.BookSearchParametersDto;
-import me.krumka.onlinebookshop.dto.CreateBookRequestDto;
-import me.krumka.onlinebookshop.dto.UpdateBookRequestDto;
+import me.krumka.onlinebookshop.dto.book.BookDto;
+import me.krumka.onlinebookshop.dto.book.BookSearchParametersDto;
+import me.krumka.onlinebookshop.dto.book.CreateBookRequestDto;
+import me.krumka.onlinebookshop.dto.book.UpdateBookRequestDto;
 import me.krumka.onlinebookshop.exception.EntityNotFoundException;
 import me.krumka.onlinebookshop.mapper.BookMapper;
 import me.krumka.onlinebookshop.model.Book;
+import me.krumka.onlinebookshop.model.Category;
 import me.krumka.onlinebookshop.repository.book.BookRepository;
 import me.krumka.onlinebookshop.repository.book.BookSpecificationBuilder;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
@@ -34,6 +38,11 @@ public class BookServiceImpl implements BookService {
                 () -> new EntityNotFoundException("Book not found with id " + id)
         );
         bookMapper.updateBookFromDto(requestDto, book);
+        List<Category> newCategories = requestDto.getCategoryIds().stream()
+                .map(Category::new)
+                .toList();
+        book.getCategories().clear();
+        book.getCategories().addAll(newCategories);
         return bookMapper.toBookDto(bookRepository.save(book));
     }
 
