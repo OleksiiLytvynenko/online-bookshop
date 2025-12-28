@@ -11,4 +11,6 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
             attributePaths = {"shoppingCart", "shoppingCart.user", "shoppingCart.cartItems"}
     )
     Optional<CartItem> findById(Long id);
+
+    Optional<CartItem> findByIdAndShoppingCartId(Long id, Long shoppingCartId);
 }

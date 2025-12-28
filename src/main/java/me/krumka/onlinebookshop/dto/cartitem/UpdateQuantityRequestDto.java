@@ -1,9 +1,9 @@
 package me.krumka.onlinebookshop.dto.cartitem;
 
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 
 public record UpdateQuantityRequestDto(
-        @Min(value = 1, message = "Quantity must be greater than or equal to 1")
+        @Positive(message = "Quantity must be greater than or equal to 1")
         Integer quantity
 ) {
 }

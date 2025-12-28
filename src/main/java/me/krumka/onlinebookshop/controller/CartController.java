@@ -3,7 +3,8 @@ package me.krumka.onlinebookshop.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import me.krumka.onlinebookshop.dto.cartitem.CartItemRequestDto;
 import me.krumka.onlinebookshop.dto.cartitem.UpdateQuantityRequestDto;
@@ -13,6 +14,7 @@ import me.krumka.onlinebookshop.service.ShoppingCartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Validated
 @RequestMapping("/cart")
 @Tag(name = "Shopping cart API", description = "Endpoints for managing a shopping cart")
 @RequiredArgsConstructor
@@ -39,6 +42,7 @@ public class CartController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             summary = "Add book to the shopping cart",
             description = "Adds a book to the shopping cart"
@@ -63,7 +67,8 @@ public class CartController {
             @AuthenticationPrincipal
             User user,
             @PathVariable
-            @Min(value = 1, message = "ID must be greater than or equal to 1")
+            @Positive(message = "ID must be greater than or equal to 1")
+            @NotNull
             Long cartItemId,
             @RequestBody UpdateQuantityRequestDto updateQuantityRequestDto
     ) {
@@ -85,7 +90,8 @@ public class CartController {
             @AuthenticationPrincipal
             User user,
             @PathVariable
-            @Min(value = 1, message = "ID must be greater than or equal to 1")
+            @Positive(message = "ID must be greater than or equal to 1")
+            @NotNull
             Long cartItemId
     ) {
         shoppingCartService.removeBookFromShoppingCart(user.getId(), cartItemId);

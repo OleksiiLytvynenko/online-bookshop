@@ -12,7 +12,6 @@ import me.krumka.onlinebookshop.model.ShoppingCart;
 import me.krumka.onlinebookshop.repository.book.BookRepository;
 import me.krumka.onlinebookshop.repository.cartitem.CartItemRepository;
 import me.krumka.onlinebookshop.repository.shoppingcart.ShoppingCartRepository;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -61,7 +60,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     @Transactional
     public ShoppingCartDto updateBookQuantity(Long userId, Long cartItemId, Integer quantity) {
-        CartItem cartItem = getCartItemForUser(userId, cartItemId);
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Shopping cart not found for user id: " + userId)
+        );
+        CartItem cartItem = cartItemRepository
+                .findByIdAndShoppingCartId(cartItemId, shoppingCart.getId())
+                .orElseThrow(
+                        () -> new EntityNotFoundException(
+                                "Cart item not found for id: " + cartItemId
+                        )
+                );
         cartItem.setQuantity(quantity);
         cartItemRepository.save(cartItem);
         return shoppingCartMapper.toShoppingCartDto(cartItem.getShoppingCart());
@@ -70,19 +78,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     @Transactional
     public void removeBookFromShoppingCart(Long userId, Long cartItemId) {
-        CartItem cartItem = getCartItemForUser(userId, cartItemId);
-        ShoppingCart shoppingCart = cartItem.getShoppingCart();
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Shopping cart not found for user id: " + userId)
+        );
+        CartItem cartItem = cartItemRepository
+                .findByIdAndShoppingCartId(cartItemId, shoppingCart.getId())
+                .orElseThrow(
+                        () -> new EntityNotFoundException(
+                                "Cart item not found for id: " + cartItemId
+                        )
+                );
         shoppingCart.getCartItems().remove(cartItem);
         cartItemRepository.delete(cartItem);
-    }
-
-    private CartItem getCartItemForUser(Long userId, Long cartItemId) {
-        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(
-                () -> new EntityNotFoundException("Cart item not found by id: " + cartItemId)
-        );
-        if (!cartItem.getShoppingCart().getUser().getId().equals(userId)) {
-            throw new AccessDeniedException("You do not have permission to update this cart item");
-        }
-        return cartItem;
     }
 }
