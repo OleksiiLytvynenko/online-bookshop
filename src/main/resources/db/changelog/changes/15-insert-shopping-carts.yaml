@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15-insert-shopping-carts
+      author: oleksii.lytvynenko
+      changes:
+        - insert:
+            tableName: shopping_carts
+            columns:
+              - column:
+                  name: id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'michael.chen@gmail.com')"
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
+        - insert:
+            tableName: shopping_carts
+            columns:
+              - column:
+                  name: id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'emma.johnson@yahoo.com')"
+              - column:
+                  name: is_deleted
+                  valueBoolean: 'false'
