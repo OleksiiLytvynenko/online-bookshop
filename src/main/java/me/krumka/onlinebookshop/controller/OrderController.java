@@ -91,12 +91,10 @@ public class OrderController {
     public OrderItemDto getOrderItemById(
             @PathVariable
             @Positive(message = "ID must be greater than or equal to 1")
-            @NotNull
-            Long orderId,
+            @NotNull Long orderId,
             @PathVariable
             @Positive(message = "ID must be greater than or equal to 1")
-            @NotNull
-            Long itemId,
+            @NotNull Long itemId,
             @AuthenticationPrincipal User user) {
         return orderService.getOrderItemById(user.getId(), orderId, itemId);
     }

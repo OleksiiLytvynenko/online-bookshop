@@ -45,6 +45,13 @@ public class OrderServiceImpl implements OrderService {
         if (cartItems.isEmpty()) {
             throw new EmptyShoppingCartException("Shopping cart is empty");
         }
+        Order order = buildOrder(userId, shippingAddress, cartItems);
+        Order savedOrder = orderRepository.save(order);
+        shoppingCart.getCartItems().clear();
+        shoppingCartRepository.save(shoppingCart);
+        return orderMapper.toOrderDto(savedOrder);
+    }
+    private Order buildOrder(Long userId, String shippingAddress, Set<CartItem> cartItems) {
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
         order.setShippingAddress(shippingAddress);
@@ -66,10 +73,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setOrderItems(orderItems);
         order.setTotal(total);
-        Order savedOrder = orderRepository.save(order);
-        shoppingCart.getCartItems().clear();
-        shoppingCartRepository.save(shoppingCart);
-        return orderMapper.toOrderDto(savedOrder);
+        return order;
     }
 
     @Override
