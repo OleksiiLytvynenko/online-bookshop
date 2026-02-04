@@ -67,6 +67,16 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(EmptyShoppingCartException.class)
+    public ResponseEntity<Object> handleEmptyShoppingCartException(
+            EmptyShoppingCartException ex
+    ) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("error", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
     private String getErrorMessege(ObjectError e) {
         if (e instanceof FieldError fieldError) {
             String field = fieldError.getField();
