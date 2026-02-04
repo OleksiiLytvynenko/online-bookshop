@@ -51,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
         shoppingCartRepository.save(shoppingCart);
         return orderMapper.toOrderDto(savedOrder);
     }
+
     private Order buildOrder(Long userId, String shippingAddress, Set<CartItem> cartItems) {
         Order order = new Order();
         order.setOrderDate(LocalDateTime.now());
